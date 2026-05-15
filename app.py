@@ -98,19 +98,20 @@ def durdur():
 def insert_toggle():
     global aktif
 
-    if keyboard.is_pressed("insert"):
-        aktif = not aktif
+    aktif = not aktif
 
-        if aktif:
-            status_label.configure(
-                text=texts[dil]["status_on"],
-                text_color="lime"
-            )
-        else:
-            status_label.configure(
-                text=texts[dil]["status_off"],
-                text_color="red"
-            )
+    if aktif:
+        status_label.configure(
+            text=texts[dil]["status_on"],
+            text_color="lime"
+        )
+    else:
+        status_label.configure(
+            text=texts[dil]["status_off"],
+            text_color="red"
+        )
+
+keyboard.add_hotkey("insert", insert_toggle)
 
 app.after(100, insert_toggle)
 
