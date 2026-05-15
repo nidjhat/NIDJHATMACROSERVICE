@@ -30,7 +30,7 @@ jobs:
 
     - name: EXE oluştur
       run: |
-        pyinstaller --onedir app.py
+        pyinstaller --onedir --noconsole --windowed app.py
 
     - name: EXE yükle
       uses: actions/upload-artifact@v4
