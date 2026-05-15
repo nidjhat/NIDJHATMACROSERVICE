@@ -199,7 +199,7 @@ import_button = ctk.CTkButton(
     text="IMPORT MACRO",
     width=220,
     height=40,
-    command=import_macro
+    command=lambda: print("Makro import sistemi yakında")
 )
 
 import_button.pack(pady=15)
