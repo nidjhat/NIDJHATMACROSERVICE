@@ -1,144 +1,199 @@
 import customtkinter as ctk
-from tkinter import filedialog
-import os
 
 ctk.set_appearance_mode("dark")
-ctk.set_default_color_theme("blue")
+ctk.set_default_color_theme("dark-blue")
 
 app = ctk.CTk()
-app.geometry("1100x650")
+app.geometry("1500x900")
 app.title("NIDJHATMACROSERVICE")
 
-# ===== SOL MENU =====
+# ================= MAIN =================
 
-left_frame = ctk.CTkFrame(app, width=220, corner_radius=0)
-left_frame.pack(side="left", fill="y")
+main = ctk.CTkFrame(app, fg_color="#050505")
+main.pack(fill="both", expand=True)
+
+# ================= LEFT SIDEBAR =================
+
+left = ctk.CTkFrame(main, width=320, fg_color="#0b0b0b", corner_radius=0)
+left.pack(side="left", fill="y")
+
+logo = ctk.CTkLabel(
+    left,
+    text="NIDJHAT\nMACRO\nSERVICE",
+    text_color="#ff1a1a",
+    font=("Arial Black", 34)
+)
+logo.pack(pady=30)
+
+search = ctk.CTkEntry(
+    left,
+    placeholder_text="Makro ara...",
+    width=260,
+    height=40
+)
+search.pack(pady=10)
+
+macro_list = [
+    "AK47 RECOIL",
+    "M4A1 RECOIL",
+    "AUG RECOIL",
+    "KRISS RECOIL",
+    "RAPID FIRE",
+    "SNIPER BREATH",
+]
+
+for macro in macro_list:
+    item = ctk.CTkFrame(left, fg_color="#111111")
+    item.pack(fill="x", padx=20, pady=5)
+
+    lbl = ctk.CTkLabel(
+        item,
+        text=macro,
+        text_color="white",
+        font=("Arial", 18)
+    )
+    lbl.pack(side="left", padx=10, pady=10)
+
+    sw = ctk.CTkSwitch(item, text="")
+    sw.pack(side="right", padx=10)
+
+# ================= CENTER =================
+
+center = ctk.CTkFrame(main, fg_color="#070707")
+center.pack(side="left", fill="both", expand=True, padx=10, pady=10)
 
 title = ctk.CTkLabel(
-    left_frame,
-    text="NIDJHAT\nMACRO\nSERVICE",
-    font=("Arial", 28, "bold")
+    center,
+    text="AK47 RECOIL",
+    text_color="#ff1a1a",
+    font=("Arial Black", 28)
 )
-title.pack(pady=30)
+title.pack(anchor="w", padx=20, pady=20)
+
+btn_frame = ctk.CTkFrame(center, fg_color="transparent")
+btn_frame.pack(anchor="w", padx=20)
 
 play_btn = ctk.CTkButton(
-    left_frame,
-    text="▶ PLAY"
+    btn_frame,
+    text="▶ PLAY",
+    width=180,
+    height=50,
+    fg_color="#ff1a1a",
+    hover_color="#cc0000",
+    font=("Arial Black", 18)
 )
-play_btn.pack(pady=10, padx=20)
+play_btn.pack(side="left", padx=10)
 
 stop_btn = ctk.CTkButton(
-    left_frame,
+    btn_frame,
     text="■ STOP",
-    fg_color="red",
-    hover_color="#990000"
+    width=180,
+    height=50,
+    fg_color="#1a1a1a",
+    hover_color="#333333",
+    font=("Arial Black", 18)
 )
-stop_btn.pack(pady=10, padx=20)
+stop_btn.pack(side="left", padx=10)
 
-# ===== IMPORT =====
+rec_btn = ctk.CTkButton(
+    btn_frame,
+    text="● REC",
+    width=180,
+    height=50,
+    fg_color="#990000",
+    hover_color="#cc0000",
+    font=("Arial Black", 18)
+)
+rec_btn.pack(side="left", padx=10)
 
-macro_list = []
+textbox = ctk.CTkTextbox(
+    center,
+    fg_color="#0d0d0d",
+    border_color="#ff1a1a",
+    border_width=1,
+    font=("Consolas", 16)
+)
+textbox.pack(fill="both", expand=True, padx=20, pady=20)
 
-macro_listbox = ctk.CTkTextbox(
+sample = """
+#   ACTION              DETAIL          DELAY
+
+1   Mouse Move          X:0 Y:-5       15ms
+2   Wait                ---            15ms
+3   Mouse Move          X:0 Y:-6       15ms
+4   Wait                ---            15ms
+5   Mouse Move          X:0 Y:-7       15ms
+"""
+
+textbox.insert("0.0", sample)
+
+# ================= RIGHT PANEL =================
+
+right = ctk.CTkFrame(main, width=320, fg_color="#0b0b0b")
+right.pack(side="right", fill="y")
+
+lang = ctk.CTkComboBox(
+    right,
+    values=["Turkce", "English", "Русский"],
+    width=220,
+    height=40
+)
+lang.pack(pady=30)
+
+settings_title = ctk.CTkLabel(
+    right,
+    text="MAKRO AYARLARI",
+    text_color="#ff1a1a",
+    font=("Arial Black", 24)
+)
+settings_title.pack(pady=10)
+
+loop_check = ctk.CTkCheckBox(
+    right,
+    text="Surekli Tekrar",
+    text_color="white"
+)
+loop_check.pack(anchor="w", padx=30, pady=10)
+
+delay = ctk.CTkSlider(
+    right,
+    from_=1,
+    to=100,
+    width=220,
+    progress_color="#ff1a1a"
+)
+delay.pack(pady=20)
+
+activate_btn = ctk.CTkButton(
+    right,
+    text="AKTIF ET",
+    width=220,
+    height=50,
+    fg_color="#ff1a1a",
+    hover_color="#cc0000",
+    font=("Arial Black", 18)
+)
+activate_btn.pack(pady=20)
+
+disable_btn = ctk.CTkButton(
+    right,
+    text="PASIF ET",
+    width=220,
+    height=50,
+    fg_color="#1a1a1a",
+    hover_color="#333333",
+    font=("Arial Black", 18)
+)
+disable_btn.pack()
+
+# ================= FOOTER =================
+
+footer = ctk.CTkLabel(
     app,
-    width=650,
-    height=500
+    text="NIDJHATMACROSERVICE v1.0.0",
+    text_color="#00ff66",
+    font=("Arial", 16)
 )
-macro_listbox.pack(pady=30, padx=30)
-
-def import_macro():
-
-    file = filedialog.askopenfilename(
-        filetypes=[
-            ("Macro Files", "*.amc *.mgn *.txt"),
-            ("All Files", "*.*")
-        ]
-    )
-
-    if file:
-
-        name = os.path.basename(file)
-
-        macro_list.append(name)
-
-        macro_listbox.delete("1.0", "end")
-
-        for macro in macro_list:
-            macro_listbox.insert("end", f"{macro}\n")
-
-import_btn = ctk.CTkButton(
-    left_frame,
-    text="＋ IMPORT MACRO",
-    command=import_macro
-)
-import_btn.pack(pady=20, padx=20)
-
-# ===== DIL =====
-
-lang_menu = ctk.CTkOptionMenu(
-    left_frame,
-    values=["Turkce", "English", "Russian"]
-)
-lang_menu.pack(pady=20)
-
-# ===== PROFILLER =====
-
-profile_title = ctk.CTkLabel(
-    left_frame,
-    text="PROFILES",
-    font=("Arial", 20, "bold")
-)
-profile_title.pack(pady=20)
-
-aug_btn = ctk.CTkButton(
-    left_frame,
-    text="AUG"
-)
-aug_btn.pack(pady=5, padx=20)
-
-sniper_btn = ctk.CTkButton(
-    left_frame,
-    text="SNIPER"
-)
-sniper_btn.pack(pady=5, padx=20)
-
-drob_btn = ctk.CTkButton(
-    left_frame,
-    text="DROB"
-)
-drob_btn.pack(pady=5, padx=20)
-
-# ===== CONTACT =====
-
-contact_label = ctk.CTkLabel(
-    left_frame,
-    text="CONTACT",
-    font=("Arial", 18, "bold")
-)
-contact_label.pack(pady=15)
-
-wpp = ctk.CTkLabel(
-    left_frame,
-    text="WhatsApp: +994773892509"
-)
-wpp.pack()
-
-tt = ctk.CTkLabel(
-    left_frame,
-    text="TikTok: @PHIRIYEFF99"
-)
-tt.pack()
-
-ig = ctk.CTkLabel(
-    left_frame,
-    text="Instagram: @nid.jhat"
-)
-ig.pack()
-
-yt = ctk.CTkLabel(
-    left_frame,
-    text="YouTube: @nidjhat"
-)
-yt.pack()
+footer.place(x=20, y=865)
 
 app.mainloop()
