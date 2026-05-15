@@ -168,12 +168,23 @@ macro_list = []
 
 macro_box = ctk.CTkTextbox(app, width=500, height=180)
 macro_box.pack(pady=10)
+from tkinter import filedialog
+
+def import_macro():
+    file = filedialog.askopenfilename()
+
+    if file:
+        macro_box.insert("end", file + "\n")
+
 import_button = ctk.CTkButton(
     app,
     text="IMPORT MACRO",
     width=220,
     height=40,
-    command=lambda: print("Yakinda")
+    command=import_macro
+)
+
+import_button.pack(pady=15)
 )
 
 import_button.pack(pady=15)
