@@ -30,7 +30,7 @@ jobs:
 
     - name: EXE oluştur
       run: |
-        pyinstaller --onedir --windowed --collect-all customtkinter --collect-all tkinter app.py
+        pyinstaller --onedir --windowed --hidden-import=tkinter --collect-all customtkinter --collect-all tkinter app.py
 
     - name: EXE yükle
       uses: actions/upload-artifact@v4
