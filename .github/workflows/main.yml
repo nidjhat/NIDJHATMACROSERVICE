@@ -1,0 +1,39 @@
+name: Build EXE
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Repo indir
+      uses: actions/checkout@v4
+
+    - name: Python kur
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Kütüphaneleri kur
+      run: |
+        pip install customtkinter
+        pip install pillow
+        pip install pyinstaller
+        pip install keyboard
+        pip install mouse
+        pip install pynput
+        pip install pyautogui
+
+    - name: EXE oluştur
+      run: |
+        pyinstaller --onefile --windowed app.py
+
+    - name: EXE yükle
+      uses: actions/upload-artifact@v4
+      with:
+        name: NIDJHATMACROSERVICE
+        path: dist/*.exe
