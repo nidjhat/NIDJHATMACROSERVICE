@@ -191,9 +191,6 @@ import_button = ctk.CTkButton(
 )
 
 import_button.pack(pady=15)
-)
-
-import_button.pack(pady=15)
 
 def import_macro():
 
