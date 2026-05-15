@@ -4,141 +4,209 @@ ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("dark-blue")
 
 app = ctk.CTk()
-app.geometry("1500x900")
+app.geometry("1550x900")
 app.title("NIDJHATMACROSERVICE")
+app.configure(fg_color="#050505")
 
-# ================= MAIN =================
+# ================= LEFT PANEL =================
 
-main = ctk.CTkFrame(app, fg_color="#050505")
-main.pack(fill="both", expand=True)
-
-# ================= LEFT SIDEBAR =================
-
-left = ctk.CTkFrame(main, width=320, fg_color="#0b0b0b", corner_radius=0)
-left.pack(side="left", fill="y")
+left = ctk.CTkFrame(app, width=330, fg_color="#090909", corner_radius=15)
+left.pack(side="left", fill="y", padx=10, pady=10)
 
 logo = ctk.CTkLabel(
     left,
-    text="NIDJHAT\nMACRO\nSERVICE",
+    text="NIDJHATMACROSERVICE",
     text_color="#ff1a1a",
-    font=("Arial Black", 34)
+    font=("Arial Black", 28)
 )
-logo.pack(pady=30)
+logo.pack(pady=20)
+
+subtitle = ctk.CTkLabel(
+    left,
+    text="MACRO ENGINE",
+    text_color="gray",
+    font=("Arial", 18)
+)
+subtitle.pack()
 
 search = ctk.CTkEntry(
     left,
     placeholder_text="Makro ara...",
-    width=260,
-    height=40
+    width=270,
+    height=40,
+    fg_color="#111111",
+    border_color="#ff1a1a"
 )
-search.pack(pady=10)
+search.pack(pady=20)
 
-macro_list = [
+macros = [
     "AK47 RECOIL",
     "M4A1 RECOIL",
     "AUG RECOIL",
     "KRISS RECOIL",
     "RAPID FIRE",
     "SNIPER BREATH",
+    "JUMP SHOT",
 ]
 
-for macro in macro_list:
-    item = ctk.CTkFrame(left, fg_color="#111111")
-    item.pack(fill="x", padx=20, pady=5)
+for m in macros:
+    row = ctk.CTkFrame(left, fg_color="#101010", corner_radius=10)
+    row.pack(fill="x", padx=15, pady=5)
 
     lbl = ctk.CTkLabel(
-        item,
-        text=macro,
-        text_color="white",
-        font=("Arial", 18)
+        row,
+        text=m,
+        font=("Arial", 18),
+        text_color="white"
     )
     lbl.pack(side="left", padx=10, pady=10)
 
-    sw = ctk.CTkSwitch(item, text="")
+    sw = ctk.CTkSwitch(
+        row,
+        text="",
+        progress_color="#ff1a1a",
+        button_color="white"
+    )
     sw.pack(side="right", padx=10)
+
+profiles_title = ctk.CTkLabel(
+    left,
+    text="PROFILLER",
+    text_color="#ff1a1a",
+    font=("Arial Black", 22)
+)
+profiles_title.pack(pady=(25,10))
+
+profile_box = ctk.CTkTextbox(
+    left,
+    width=270,
+    height=180,
+    fg_color="#0f0f0f",
+    border_color="#ff1a1a",
+    border_width=1
+)
+profile_box.pack(pady=10)
+
+profile_box.insert("0.0", """
+Point Blank
+CS2
+Valorant
+PUBG
+Genel
+""")
 
 # ================= CENTER =================
 
-center = ctk.CTkFrame(main, fg_color="#070707")
-center.pack(side="left", fill="both", expand=True, padx=10, pady=10)
+center = ctk.CTkFrame(app, fg_color="#070707", corner_radius=15)
+center.pack(side="left", fill="both", expand=True, padx=5, pady=10)
+
+# TOP MENU
+
+topmenu = ctk.CTkFrame(center, fg_color="transparent")
+topmenu.pack(fill="x", pady=10)
+
+tabs = ["MACRO", "RAPID FIRE", "AYARLAR", "PROFILLER", "ARACLAR"]
+
+for t in tabs:
+    btn = ctk.CTkButton(
+        topmenu,
+        text=t,
+        width=180,
+        height=60,
+        fg_color="#101010",
+        hover_color="#ff1a1a",
+        border_color="#ff1a1a",
+        border_width=1,
+        font=("Arial Black", 18)
+    )
+    btn.pack(side="left", padx=5)
+
+# TITLE
 
 title = ctk.CTkLabel(
     center,
     text="AK47 RECOIL",
     text_color="#ff1a1a",
-    font=("Arial Black", 28)
+    font=("Arial Black", 32)
 )
-title.pack(anchor="w", padx=20, pady=20)
+title.pack(anchor="w", padx=20, pady=15)
 
-btn_frame = ctk.CTkFrame(center, fg_color="transparent")
-btn_frame.pack(anchor="w", padx=20)
+# BUTTONS
 
-play_btn = ctk.CTkButton(
-    btn_frame,
+buttons = ctk.CTkFrame(center, fg_color="transparent")
+buttons.pack(anchor="w", padx=20)
+
+play = ctk.CTkButton(
+    buttons,
     text="▶ PLAY",
     width=180,
-    height=50,
+    height=60,
     fg_color="#ff1a1a",
     hover_color="#cc0000",
-    font=("Arial Black", 18)
+    font=("Arial Black", 20)
 )
-play_btn.pack(side="left", padx=10)
+play.pack(side="left", padx=10)
 
-stop_btn = ctk.CTkButton(
-    btn_frame,
+stop = ctk.CTkButton(
+    buttons,
     text="■ STOP",
     width=180,
-    height=50,
-    fg_color="#1a1a1a",
+    height=60,
+    fg_color="#151515",
     hover_color="#333333",
-    font=("Arial Black", 18)
+    font=("Arial Black", 20)
 )
-stop_btn.pack(side="left", padx=10)
+stop.pack(side="left", padx=10)
 
-rec_btn = ctk.CTkButton(
-    btn_frame,
+rec = ctk.CTkButton(
+    buttons,
     text="● REC",
     width=180,
-    height=50,
+    height=60,
     fg_color="#990000",
     hover_color="#cc0000",
-    font=("Arial Black", 18)
+    font=("Arial Black", 20)
 )
-rec_btn.pack(side="left", padx=10)
+rec.pack(side="left", padx=10)
 
-textbox = ctk.CTkTextbox(
+# TABLE AREA
+
+table = ctk.CTkTextbox(
     center,
-    fg_color="#0d0d0d",
+    fg_color="#090909",
     border_color="#ff1a1a",
     border_width=1,
-    font=("Consolas", 16)
+    font=("Consolas", 17)
 )
-textbox.pack(fill="both", expand=True, padx=20, pady=20)
+table.pack(fill="both", expand=True, padx=20, pady=20)
 
-sample = """
-#   ACTION              DETAIL          DELAY
+table.insert("0.0", """
+#   ACTION             DETAIL          DELAY
 
-1   Mouse Move          X:0 Y:-5       15ms
-2   Wait                ---            15ms
-3   Mouse Move          X:0 Y:-6       15ms
-4   Wait                ---            15ms
-5   Mouse Move          X:0 Y:-7       15ms
-"""
-
-textbox.insert("0.0", sample)
+1   Mouse Move         X:0  Y:-5      15ms
+2   Wait               ---            15ms
+3   Mouse Move         X:0  Y:-6      15ms
+4   Wait               ---            15ms
+5   Mouse Move         X:0  Y:-7      15ms
+6   Wait               ---            15ms
+7   Mouse Move         X:0  Y:-8      15ms
+""")
 
 # ================= RIGHT PANEL =================
 
-right = ctk.CTkFrame(main, width=320, fg_color="#0b0b0b")
-right.pack(side="right", fill="y")
+right = ctk.CTkFrame(app, width=320, fg_color="#090909", corner_radius=15)
+right.pack(side="right", fill="y", padx=10, pady=10)
 
 lang = ctk.CTkComboBox(
     right,
-    values=["Turkce", "English", "Русский"],
+    values=["Türkçe", "English", "Русский"],
     width=220,
-    height=40
+    height=45,
+    fg_color="#111111",
+    border_color="#ff1a1a",
+    button_color="#ff1a1a"
 )
-lang.pack(pady=30)
+lang.pack(pady=25)
 
 settings_title = ctk.CTkLabel(
     right,
@@ -148,45 +216,78 @@ settings_title = ctk.CTkLabel(
 )
 settings_title.pack(pady=10)
 
-loop_check = ctk.CTkCheckBox(
+loop = ctk.CTkCheckBox(
     right,
     text="Surekli Tekrar",
-    text_color="white"
+    text_color="white",
+    checkbox_width=25,
+    checkbox_height=25
 )
-loop_check.pack(anchor="w", padx=30, pady=10)
+loop.pack(anchor="w", padx=30, pady=15)
 
-delay = ctk.CTkSlider(
+slider = ctk.CTkSlider(
     right,
     from_=1,
     to=100,
     width=220,
-    progress_color="#ff1a1a"
+    progress_color="#ff1a1a",
+    button_color="white"
 )
-delay.pack(pady=20)
+slider.pack(pady=20)
 
-activate_btn = ctk.CTkButton(
+activate = ctk.CTkButton(
     right,
     text="AKTIF ET",
     width=220,
-    height=50,
+    height=55,
     fg_color="#ff1a1a",
     hover_color="#cc0000",
     font=("Arial Black", 18)
 )
-activate_btn.pack(pady=20)
+activate.pack(pady=10)
 
-disable_btn = ctk.CTkButton(
+disable = ctk.CTkButton(
     right,
     text="PASIF ET",
     width=220,
-    height=50,
-    fg_color="#1a1a1a",
+    height=55,
+    fg_color="#151515",
     hover_color="#333333",
     font=("Arial Black", 18)
 )
-disable_btn.pack()
+disable.pack()
 
-# ================= FOOTER =================
+# CONTACTS
+
+contact_title = ctk.CTkLabel(
+    right,
+    text="ILETISIM",
+    text_color="#ff1a1a",
+    font=("Arial Black", 24)
+)
+contact_title.pack(pady=(40,10))
+
+contacts = [
+    "WHATSAPP",
+    "YOUTUBE",
+    "TELEGRAM",
+    "DISCORD",
+    "WEBSITE"
+]
+
+for c in contacts:
+    b = ctk.CTkButton(
+        right,
+        text=c,
+        width=220,
+        height=55,
+        fg_color="#101010",
+        hover_color="#ff1a1a",
+        border_color="#ff1a1a",
+        border_width=1,
+        font=("Arial Black", 16)
+    )
+    b.pack(pady=8)
 
 footer = ctk.CTkLabel(
     app,
@@ -194,6 +295,6 @@ footer = ctk.CTkLabel(
     text_color="#00ff66",
     font=("Arial", 16)
 )
-footer.place(x=20, y=865)
+footer.place(x=20, y=870)
 
 app.mainloop()
