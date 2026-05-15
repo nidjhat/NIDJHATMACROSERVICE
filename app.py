@@ -161,6 +161,39 @@ macro_label.pack(pady=15)
 
 macro_frame = ctk.CTkFrame(app)
 macro_frame.pack(pady=10)
+from tkinter import filedialog
+
+macro_list = []
+
+macro_box = ctk.CTkTextbox(app, width=500, height=180)
+macro_box.pack(pady=10)
+
+def import_macro():
+
+    file = filedialog.askopenfilename(
+        filetypes=[
+            ("Macro Files", "*.amc *.mgn *.txt"),
+            ("All Files", "*.*")
+        ]
+    )
+
+    if file:
+        macro_list.append(file)
+
+        macro_box.delete("1.0", "end")
+
+        for macro in macro_list:
+            macro_box.insert("end", macro + "\n")
+
+import_button = ctk.CTkButton(
+    app,
+    text="IMPORT MACRO",
+    width=220,
+    height=40,
+    command=import_macro
+)
+
+import_button.pack(pady=15)
 
 ctk.CTkButton(macro_frame, text="AMC").grid(row=0, column=0, padx=10, pady=10)
 ctk.CTkButton(macro_frame, text="MGN").grid(row=0, column=1, padx=10, pady=10)
