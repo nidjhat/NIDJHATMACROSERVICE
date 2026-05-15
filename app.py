@@ -1,6 +1,12 @@
 import customtkinter as ctk
 import webbrowser
 import keyboard
+from tkinter import filedialog
+def import_macro():
+    file = filedialog.askopenfilename()
+
+    if file:
+        macro_box.insert("end", file + "\n")
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
